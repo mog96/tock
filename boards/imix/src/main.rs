@@ -471,6 +471,13 @@ pub unsafe fn reset_handler() {
 
     let mut chip = sam4l::chip::Sam4l::new();
 
+    // LOWPAN FRAG TEST
+    let lowpan_frag_test = lowpan_frag_dummy::initialize_all(radio_mac as &'static Mac,
+                                                             mux_alarm as &'static
+                                                                MuxAlarm<'static,
+                                                                    sam4l::ast::Ast>);
+    lowpan_frag_test.start();
+
     // These two lines need to be below the creation of the chip for
     // initialization to work.
     rf233.reset();
